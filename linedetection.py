@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import matplotlib.pyplot as plt
 
 #declare canny as image
 def canny(image):
@@ -19,8 +20,9 @@ lane_image = np.copy(image)
 #apply canny detect on 'test image.jpg'
 canny = canny(lane_image)
 
-#show the image as grayscale
-cv2.imshow('result', canny)
-#the image in form gray scale will appear "..." in mili second "0" is unlimited
-cv2.waitKey(0)
-#show the image in matrix
+#show the image as matplotlib
+plt.imshow(canny)
+#the image in form matplotlib will display on the screen 
+plt.show()
+
+
