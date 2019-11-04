@@ -25,8 +25,10 @@ def region_of_interset(image):
     mask = np.zeros_like(image)
     #our line is white
     cv2.fillPoly(mask, polygons, 255)
-    #bak to mask again
-    return mask
+    #add bitwise operator in our image
+    masked_image = cv2.bitwise_and(image, mask)
+    #back to masked image again
+    return masked_image
 
 #read the image from left window
 image = cv2.imread('test_image.jpg')
@@ -34,8 +36,9 @@ image = cv2.imread('test_image.jpg')
 lane_image = np.copy(image)
 #apply canny detect on 'test image.jpg'
 canny = canny(lane_image)
+croped_image = region_of_interset(canny)
 #show the image as cv2
-cv2.imshow("result", region_of_interset(canny))
+cv2.imshow("result", croped_image)
 #the image in will display on the screen
 cv2.waitKey(0)
 
