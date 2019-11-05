@@ -1,6 +1,15 @@
 import cv2
 import numpy as np
 
+def avarage_slope_intercept(image, lines):
+    left_fit = []
+    right_fit = []
+    for line in lines:
+        x1, y1, x2, y2 = line.reshape(4)
+        parameters = np.polyfit((x1, x2), (y1, y2), 1)
+        print(parameters)
+
+
 
 # declare canny as image
 def canny(image):
@@ -51,10 +60,12 @@ image = cv2.imread('test_image.jpg')
 # analyze the image using numpy
 lane_image = np.copy(image)
 # apply canny detect on 'test image.jpg'
-canny = canny(lane_image)
-croped_image = region_of_interset(canny)
+canny_image = canny(lane_image)
+croped_image = region_of_interset(canny_image)
 # Apply hough transformation formula
 lines = cv2.HoughLinesP(croped_image, 2, np.pi / 180, 100, np.array([]), minLineLength=40, maxLineGap=5)
+#..
+avaraged_lines = avarage_slope_intercept(lane_image, lines)
 # display the line in the image
 line_image = display_lines(lane_image, lines)
 # show the image as cv2
