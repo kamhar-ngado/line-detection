@@ -58,6 +58,9 @@ lines = cv2.HoughLinesP(croped_image, 2, np.pi / 180, 100, np.array([]), minLine
 # display the line in the image
 line_image = display_lines(lane_image, lines)
 # show the image as cv2
-cv2.imshow("result", line_image)
+#combina original image with black hough transformation
+combo_image = cv2.addWeighted(lane_image, 0.8, line_image, 1, 1)
+#display the combo image
+cv2.imshow("result", combo_image)
 # the image in will display on the screen
 cv2.waitKey(0)
