@@ -7,7 +7,14 @@ def avarage_slope_intercept(image, lines):
     for line in lines:
         x1, y1, x2, y2 = line.reshape(4)
         parameters = np.polyfit((x1, x2), (y1, y2), 1)
-        print(parameters)
+        slope = parameters[0]
+        intercept = parameters[1]
+        if slope < 0:
+            left_fit.append((slope, intercept))
+        else:
+            right_fit.append((slope, intercept))
+        print(left_fit)
+        print(right_fit)
 
 
 
