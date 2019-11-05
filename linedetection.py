@@ -4,8 +4,11 @@ import numpy as np
 def make_coordinates(image, line_parameters):
     slope, intercept = line_parameters
     print(image.shape)
-    #y1
-    return
+    y1 = image.shape[0]
+    y2 = int(y1*(3/5))
+    x1 = int((y1-intercept)/slope)
+    x2 = int((y2-intercept)/slope)
+    return np.array([x1, y1, x2, y2])
 
 
 def avarage_slope_intercept(image, lines):
@@ -24,6 +27,7 @@ def avarage_slope_intercept(image, lines):
     right_fit_avarage = np.average(right_fit, axis=0)
     left_line = make_coordinates(image, left_fit_avarage)
     right_line = make_coordinates(image, right_fit_avarage)
+    return np.array([left_line, right_line])
 
 
 # declare canny as image
@@ -82,11 +86,10 @@ lines = cv2.HoughLinesP(croped_image, 2, np.pi / 180, 100, np.array([]), minLine
 #..
 avaraged_lines = avarage_slope_intercept(lane_image, lines)
 # display the line in the image
-line_image = display_lines(lane_image, lines)
-# show the image as cv2
+line_image = display_lines(lane_image, avaraged_lines)
 #combina original image with black hough transformation
 combo_image = cv2.addWeighted(lane_image, 0.8, line_image, 1, 1)
 #display the combo image
-cv2.imshow("result", combo_image)
+cv2.imshow("result", line_image)
 # the image in will display on the screen
 cv2.waitKey(0)
