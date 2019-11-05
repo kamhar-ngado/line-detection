@@ -13,9 +13,10 @@ def avarage_slope_intercept(image, lines):
             left_fit.append((slope, intercept))
         else:
             right_fit.append((slope, intercept))
-        print(left_fit)
-        print(right_fit)
-
+    left_fit_avarage = np.average(left_fit, axis=0)
+    right_fit_avarage = np.average(right_fit, axis=0)
+    print(left_fit_avarage)
+    print(right_fit_avarage)
 
 
 # declare canny as image
