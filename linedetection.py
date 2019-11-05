@@ -13,6 +13,16 @@ def canny(image):
     #we back to canny method again
     return canny
 
+def display_lines(image, lines):
+    #using zeros_like will  appear the image in zero intensity
+    line_image = np.zeros_like(image)
+    #if it is not empty
+    if lines is not None:
+        #using looping for print array x1, x2, x3, x4
+        for line in lines:
+            #representate the image in matrix pixel
+            print(line)
+
 #define specific area we wnat to calculate in threshol mode
 def region_of_interset(image):
     #the heightness of our image
@@ -37,6 +47,10 @@ lane_image = np.copy(image)
 #apply canny detect on 'test image.jpg'
 canny = canny(lane_image)
 croped_image = region_of_interset(canny)
+#....
+lines = cv2.HoughLinesP(croped_image, 2, np.pi/180, 100, np.array([]), minLineLength=40, maxLineGap=5)
+#display the line in the image
+line_image = display_lines(lane_image, lines)
 #show the image as cv2
 cv2.imshow("result", croped_image)
 #the image in will display on the screen
