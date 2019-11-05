@@ -90,6 +90,6 @@ line_image = display_lines(lane_image, avaraged_lines)
 #combina original image with black hough transformation
 combo_image = cv2.addWeighted(lane_image, 0.8, line_image, 1, 1)
 #display the combo image
-cv2.imshow("result", line_image)
+cv2.imshow("result", combo_image)
 # the image in will display on the screen
 cv2.waitKey(0)
