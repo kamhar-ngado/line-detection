@@ -1,6 +1,13 @@
 import cv2
 import numpy as np
 
+def make_coordinates(image, line_parameters):
+    slope, intercept = line_parameters
+    print(image.shape)
+    #y1
+    return
+
+
 def avarage_slope_intercept(image, lines):
     left_fit = []
     right_fit = []
@@ -15,8 +22,8 @@ def avarage_slope_intercept(image, lines):
             right_fit.append((slope, intercept))
     left_fit_avarage = np.average(left_fit, axis=0)
     right_fit_avarage = np.average(right_fit, axis=0)
-    print(left_fit_avarage)
-    print(right_fit_avarage)
+    left_line = make_coordinates(image, left_fit_avarage)
+    right_line = make_coordinates(image, right_fit_avarage)
 
 
 # declare canny as image
