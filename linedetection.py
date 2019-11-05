@@ -74,22 +74,43 @@ def region_of_interset(image):
     return masked_image
 
 
-# read the image from left window
-image = cv2.imread('test_image.jpg')
-# analyze the image using numpy
-lane_image = np.copy(image)
-# apply canny detect on 'test image.jpg'
-canny_image = canny(lane_image)
-croped_image = region_of_interset(canny_image)
-# Apply hough transformation formula
-lines = cv2.HoughLinesP(croped_image, 2, np.pi / 180, 100, np.array([]), minLineLength=40, maxLineGap=5)
-#..
-avaraged_lines = avarage_slope_intercept(lane_image, lines)
-# display the line in the image
-line_image = display_lines(lane_image, avaraged_lines)
-#combina original image with black hough transformation
-combo_image = cv2.addWeighted(lane_image, 0.8, line_image, 1, 1)
-#display the combo image
-cv2.imshow("result", combo_image)
-# the image in will display on the screen
-cv2.waitKey(0)
+# ## read the image from left window
+# image = cv2.imread('test_image.jpg')
+# ## analyze the image using numpy
+# lane_image = np.copy(image)
+# ## apply canny detect on 'test image.jpg'
+# canny_image = canny(lane_image)
+# croped_image = region_of_interset(canny_image)
+# ## Apply hough transformation formula
+# lines = cv2.HoughLinesP(croped_image, 2, np.pi / 180, 100, np.array([]), minLineLength=40, maxLineGap=5)
+# ##..
+# avaraged_lines = avarage_slope_intercept(lane_image, lines)
+# ##display the line in the image
+# line_image = display_lines(lane_image, avaraged_lines)
+# ##combina original image with black hough transformation
+# combo_image = cv2.addWeighted(lane_image, 0.8, line_image, 1, 1)
+# ##display the combo image
+# cv2.imshow("result", combo_image)
+# ## the image in will display on the screen
+# cv2.waitKey(0)
+
+cap = cv2.VideoCapture("test2.mp4")
+while(cap.isOpened()):
+    -, frame = cap.read()
+    canny_image = canny(frame)
+    croped_image = region_of_interset(canny_image)
+    # ## Apply hough transformation formula
+    lines = cv2.HoughLinesP(croped_image, 2, np.pi / 180, 100, np.array([]), minLineLength=40, maxLineGap=5)
+    # ##..
+    avaraged_lines = avarage_slope_intercept(frame, lines)
+    # ##display the line in the image
+    line_image = display_lines(frame, avaraged_lines)
+    # ##combina original image with black hough transformation
+    combo_image = cv2.addWeighted(frame, 0.8, line_image, 1, 1)
+    # ##display the combo image
+    cv2.imshow("result", combo_image)
+    # ## the image in will display on the screen
+    cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+cap.release()
+cv2.destroyAllWindows()
